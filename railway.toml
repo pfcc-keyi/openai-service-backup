@@ -1,0 +1,27 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[networking]
+serviceName = "openai-service"
+
+[[services]]
+name = "openai-service"
+source = "."
+
+[services.build]
+buildCommand = "pip install -r requirements.txt"
+startCommand = "python start_production.py"
+
+[services.healthcheck]
+path = "/health"
+timeout = 30
+
+[[services]]
+name = "redis"
+source = "redis:7" 
