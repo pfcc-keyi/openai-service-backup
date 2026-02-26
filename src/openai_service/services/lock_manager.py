@@ -162,6 +162,7 @@ class RedisLockManager:
             lock_info = LockInfo(
                 lock_id=lock_id,
                 api_key=api_key,
+                base_url=settings.openai_base_url,
                 acquired_at=acquired_at,
                 expires_at=expires_at,
                 request_id=request_id,

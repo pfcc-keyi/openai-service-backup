@@ -25,8 +25,8 @@ USER app
 # 暴露端口
 EXPOSE 8004
 
-# 健康检查
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+# 健康检查 - 增加启动时间和超时时间
+HEALTHCHECK --interval=30s --timeout=30s --start-period=60s --retries=5 \
     CMD curl -f http://localhost:8004/health || exit 1
 
 # 启动命令

@@ -62,6 +62,10 @@ class LockInfo(BaseModel):
     """Lock information model."""
     lock_id: str = Field(..., description="Unique lock identifier")
     api_key: str = Field(..., description="Assigned OpenAI API key")
+    base_url: str = Field(
+        default="https://api.openai.com/v1",
+        description="OpenAI API base URL for the consuming service to use"
+    )
     acquired_at: datetime = Field(..., description="Lock acquisition timestamp")
     expires_at: datetime = Field(..., description="Lock expiration timestamp")
     request_id: str = Field(..., description="Original request identifier")

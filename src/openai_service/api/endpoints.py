@@ -142,9 +142,11 @@ async def acquire_lock(
         
         # Return response matching the expected format from existing services
         # NOTE: Existing services expect lock fields directly in response, not nested in lock_info
+        # base_url is a new field - existing services will safely ignore it until updated
         return {
             "lock_id": lock_info.lock_id,
             "api_key": lock_info.api_key,
+            "base_url": lock_info.base_url,
             "acquired_at": lock_info.acquired_at.isoformat(),
             "expires_at": lock_info.expires_at.isoformat(),
             "request_id": lock_info.request_id,

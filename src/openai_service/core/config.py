@@ -31,12 +31,16 @@ class Settings(BaseSettings):
     redis_db: int = Field(default=0, env="REDIS_DB")
     redis_password: Optional[str] = Field(default=None, env="REDIS_PASSWORD")
     
-    # OpenAI API Key pool configuration
-    # 🔑 IMPORTANT: OpenAI Service manages the API key pool
-    # Other services (labeling-service, json-service) should NOT have OpenAI keys
-    # They get keys dynamically through the distributed lock mechanism
+    # OpenAI API configuration
+    # 🔑 IMPORTANT: OpenAI Service manages the API key pool and base URL centrally.
+    # Other services (labeling-service, json-service) should NOT have OpenAI keys.
+    # They get keys and base_url dynamically through the distributed lock mechanism.
     openai_api_keys: List[str] = Field(default_factory=list, env="OPENAI_API_KEYS")
     primary_api_key: str = Field(default="", env="PRIMARY_OPENAI_API_KEY")
+    openai_base_url: str = Field(
+        default="https://api.openai.com/v1",
+        env="OPENAI_BASE_URL"
+    )
     
     # Lock configuration
     default_lock_timeout: int = Field(default=300, env="DEFAULT_LOCK_TIMEOUT")  # 5 minutes
